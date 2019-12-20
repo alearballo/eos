@@ -65,7 +65,7 @@ cd $EOSIO_INSTALL_LOCATION && curl -LO https://github.com/Kitware/CMake/releases
     make install && \
     rm -rf $EOSIO_INSTALL_LOCATION/cmake-3.16.2.tar.gz $EOSIO_INSTALL_LOCATION/cmake-3.16.2
 # apply clang patch
-cp -f $EOSIO_LOCATION/scripts/clang-devtoolset8-support.patch /tmp/clang-devtoolset8-support.patch
+cp -f $EOS_LOCATION/scripts/clang-devtoolset8-support.patch /tmp/clang-devtoolset8-support.patch
 # build clang
 cd $EOSIO_INSTALL_LOCATION && git clone --single-branch --branch release_80 https://git.llvm.org/git/llvm.git clang8 && cd clang8 && git checkout 18e41dc && \
     cd tools && git clone --single-branch --branch release_80 https://git.llvm.org/git/lld.git && cd lld && git checkout d60a035 && \
