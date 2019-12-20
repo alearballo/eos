@@ -96,7 +96,7 @@ fi
 export DETERMINED_HASH=$(sha1sum /tmp/$POPULATED_FILE_NAME | awk '{ print $1 }')
 export HASHED_IMAGE_TAG="eos-$(basename ${FILE_NAME:-$IMAGE_TAG} | awk '{split($0,a,/\.(d|s)/); print a[1] }')-${DETERMINED_HASH}"
 export FULL_TAG="eosio/ci:$HASHED_IMAGE_TAG"
-sed -i -e "s/eos.git \$EOSIO_LOCATION/eos.git \$EOSIO_LOCATION \&\& cd \$EOSIO_LOCATION \&\& git pull \&\& git checkout -f $BUILDKITE_COMMIT/g" /tmp/$POPULATED_FILE_NAME # MUST BE AFTER WE GENERATE THE HASH
+sed -i -e "s/eos.git \$EOS_LOCATION/eos.git \$EOS_LOCATION \&\& cd \$EOS_LOCATION \&\& git pull \&\& git checkout -f $BUILDKITE_COMMIT/g" /tmp/$POPULATED_FILE_NAME # MUST BE AFTER WE GENERATE THE HASH
 chmod +x /tmp/$POPULATED_FILE_NAME
 [[ $DEBUG == true ]] && cat /tmp/$POPULATED_FILE_NAME
 if [[ $ONLYHASH == true ]]; then
