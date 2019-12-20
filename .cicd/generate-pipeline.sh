@@ -117,9 +117,9 @@ EOF
         cat <<EOF
   - label: "$(echo "$PLATFORM_JSON" | jq -r .ICON) $(echo "$PLATFORM_JSON" | jq -r .PLATFORM_NAME_FULL) - Build"
     command:
-      - "git clone \$BUILDKITE_REPO eosio/eos && cd eosio/eos && $GIT_FETCH git checkout -f \$BUILDKITE_COMMIT && git submodule update --init --recursive"
-      - "cd eosio/eos && ./.cicd/build.sh"
-      - "cd eosio/eos && tar -pczf build.tar.gz build && buildkite-agent artifact upload build.tar.gz"
+      - "git clone \$BUILDKITE_REPO eos-tmp && cd eos-tmp && $GIT_FETCH git checkout -f \$BUILDKITE_COMMIT && git submodule update --init --recursive"
+      - "cd eos-tmp && ./.cicd/build.sh"
+      - "cd eos-tmp && tar -pczf build.tar.gz build && buildkite-agent artifact upload build.tar.gz"
     plugins:
       - chef/anka#v0.5.5:
           no-volume: true
@@ -197,9 +197,9 @@ EOF
             cat <<EOF
   - label: "$(echo "$PLATFORM_JSON" | jq -r .ICON) $(echo "$PLATFORM_JSON" | jq -r .PLATFORM_NAME_FULL) - Unit Tests"
     command:
-      - "git clone \$BUILDKITE_REPO eosio/eos && cd eosio/eos && $GIT_FETCH git checkout -f \$BUILDKITE_COMMIT && git submodule update --init --recursive"
-      - "cd eosio/eos && buildkite-agent artifact download build.tar.gz . --step '$(echo "$PLATFORM_JSON" | jq -r .ICON) $(echo "$PLATFORM_JSON" | jq -r .PLATFORM_NAME_FULL) - Build' && tar -xzf build.tar.gz"
-      - "cd eosio/eos && ./.cicd/test.sh scripts/parallel-test.sh"
+      - "git clone \$BUILDKITE_REPO eos-tmp && cd eos-tmp && $GIT_FETCH git checkout -f \$BUILDKITE_COMMIT && git submodule update --init --recursive"
+      - "cd eos-tmp && buildkite-agent artifact download build.tar.gz . --step '$(echo "$PLATFORM_JSON" | jq -r .ICON) $(echo "$PLATFORM_JSON" | jq -r .PLATFORM_NAME_FULL) - Build' && tar -xzf build.tar.gz"
+      - "cd eos-tmp && ./.cicd/test.sh scripts/parallel-test.sh"
     plugins:
       - chef/anka#v0.5.4:
           no-volume: true
@@ -263,9 +263,9 @@ EOF
             cat <<EOF
   - label: "$(echo "$PLATFORM_JSON" | jq -r .ICON) $(echo "$PLATFORM_JSON" | jq -r .PLATFORM_NAME_FULL) - WASM Spec Tests"
     command:
-      - "git clone \$BUILDKITE_REPO eosio/eos && cd eosio/eos && $GIT_FETCH git checkout -f \$BUILDKITE_COMMIT && git submodule update --init --recursive"
-      - "cd eosio/eos && buildkite-agent artifact download build.tar.gz . --step '$(echo "$PLATFORM_JSON" | jq -r .ICON) $(echo "$PLATFORM_JSON" | jq -r .PLATFORM_NAME_FULL) - Build' && tar -xzf build.tar.gz"
-      - "cd eosio/eos && ./.cicd/test.sh scripts/wasm-spec-test.sh"
+      - "git clone \$BUILDKITE_REPO eos-tmp && cd eos-tmp && $GIT_FETCH git checkout -f \$BUILDKITE_COMMIT && git submodule update --init --recursive"
+      - "cd eos-tmp && buildkite-agent artifact download build.tar.gz . --step '$(echo "$PLATFORM_JSON" | jq -r .ICON) $(echo "$PLATFORM_JSON" | jq -r .PLATFORM_NAME_FULL) - Build' && tar -xzf build.tar.gz"
+      - "cd eos-tmp && ./.cicd/test.sh scripts/wasm-spec-test.sh"
     plugins:
       - chef/anka#v0.5.4:
           no-volume: true
@@ -337,9 +337,9 @@ EOF
                 cat <<EOF
   - label: "$(echo "$PLATFORM_JSON" | jq -r .ICON) $(echo "$PLATFORM_JSON" | jq -r .PLATFORM_NAME_FULL) - $TEST_NAME"
     command:
-      - "git clone \$BUILDKITE_REPO eosio/eos && cd eosio/eos && $GIT_FETCH git checkout -f \$BUILDKITE_COMMIT && git submodule update --init --recursive"
-      - "cd eosio/eos && buildkite-agent artifact download build.tar.gz . --step '$(echo "$PLATFORM_JSON" | jq -r .ICON) $(echo "$PLATFORM_JSON" | jq -r .PLATFORM_NAME_FULL) - Build' && tar -xzf build.tar.gz"
-      - "cd eosio/eos && ./.cicd/test.sh scripts/serial-test.sh $TEST_NAME"
+      - "git clone \$BUILDKITE_REPO eos-tmp && cd eos-tmp && $GIT_FETCH git checkout -f \$BUILDKITE_COMMIT && git submodule update --init --recursive"
+      - "cd eos-tmp && buildkite-agent artifact download build.tar.gz . --step '$(echo "$PLATFORM_JSON" | jq -r .ICON) $(echo "$PLATFORM_JSON" | jq -r .PLATFORM_NAME_FULL) - Build' && tar -xzf build.tar.gz"
+      - "cd eos-tmp && ./.cicd/test.sh scripts/serial-test.sh $TEST_NAME"
     plugins:
       - chef/anka#v0.5.4:
           no-volume: true
@@ -412,9 +412,9 @@ EOF
                 cat <<EOF
   - label: "$(echo "$PLATFORM_JSON" | jq -r .ICON) $(echo "$PLATFORM_JSON" | jq -r .PLATFORM_NAME_FULL) - $TEST_NAME"
     command:
-      - "git clone \$BUILDKITE_REPO eosio/eos && cd eosio/eos && $GIT_FETCH git checkout -f \$BUILDKITE_COMMIT && git submodule update --init --recursive"
-      - "cd eosio/eos && buildkite-agent artifact download build.tar.gz . --step '$(echo "$PLATFORM_JSON" | jq -r .ICON) $(echo "$PLATFORM_JSON" | jq -r .PLATFORM_NAME_FULL) - Build' ${BUILD_SOURCE} && tar -xzf build.tar.gz"
-      - "cd eosio/eos && ./.cicd/test.sh scripts/long-running-test.sh $TEST_NAME"
+      - "git clone \$BUILDKITE_REPO eos-tmp && cd eos-tmp && $GIT_FETCH git checkout -f \$BUILDKITE_COMMIT && git submodule update --init --recursive"
+      - "cd eos-tmp && buildkite-agent artifact download build.tar.gz . --step '$(echo "$PLATFORM_JSON" | jq -r .ICON) $(echo "$PLATFORM_JSON" | jq -r .PLATFORM_NAME_FULL) - Build' ${BUILD_SOURCE} && tar -xzf build.tar.gz"
+      - "cd eos-tmp && ./.cicd/test.sh scripts/long-running-test.sh $TEST_NAME"
     plugins:
       - chef/anka#v0.5.4:
           no-volume: true
@@ -584,9 +584,9 @@ cat <<EOF
 
   - label: ":darwin: macOS 10.14 - Package Builder"
     command:
-      - "git clone \$BUILDKITE_REPO eosio/eos && cd eosio/eos && $GIT_FETCH git checkout -f \$BUILDKITE_COMMIT"
-      - "cd eosio/eos && buildkite-agent artifact download build.tar.gz . --step ':darwin: macOS 10.14 - Build' && tar -xzf build.tar.gz"
-      - "cd eosio/eos && ./.cicd/package.sh"
+      - "git clone \$BUILDKITE_REPO eos-tmp && cd eos-tmp && $GIT_FETCH git checkout -f \$BUILDKITE_COMMIT"
+      - "cd eos-tmp && buildkite-agent artifact download build.tar.gz . --step ':darwin: macOS 10.14 - Build' && tar -xzf build.tar.gz"
+      - "cd eos-tmp && ./.cicd/package.sh"
     plugins:
       - chef/anka#v0.5.4:
           no-volume: true
